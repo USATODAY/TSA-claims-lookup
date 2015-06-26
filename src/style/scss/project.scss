@@ -30,7 +30,7 @@ body {
 }
 
 .iapp-page-wrap {
-    height: 100%;
+    min-height: 100%;
     @media (min-width: 800px) {
         background:url(http://www.gannett-cdn.com/experiments/usatoday/2014/11/airport-interactive/img/airport.jpg) no-repeat center center fixed;;
         background-size: cover;
