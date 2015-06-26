@@ -8,8 +8,7 @@ define(
     var app = app || {};
 
     app.init = function() {
-      console.log("app initialized");
-      jQuery("body").append(templates["template.html"]({test: "Hello world!"}));
+      jQuery("body").append(templates["app.html"]());
     };
 
     return app;
