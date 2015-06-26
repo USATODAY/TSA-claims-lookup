@@ -13,3 +13,11 @@
     transition: background-color .5s;
   }
 }
+
+.button-group{
+  width: 300px;
+  margin: 0 auto;
+  .button {
+    display: inline-block;
+  }
+}
