@@ -190,7 +190,8 @@ module.exports = function(grunt) {
           "useStrict": true,
           "uglify2": {
             "beautify": true,
-            "toplevel": true
+            "toplevel": true,
+            "quote-keys": true
           },
           "paths": require_paths,
           "shim": require_shim

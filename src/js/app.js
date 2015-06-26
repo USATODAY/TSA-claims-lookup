@@ -10,23 +10,26 @@ define(
   function(jQuery, _, angular, d3, templates, Analytics) {
 
     var blnIframeEmbed = window != window.parent;
-    console.log(angular);
+    var hostname = window.location.hostname;
+
+    var dataURL;
+
+    if ((hostname == "localhost" || hostname == "10.0.2.2")) {
+        dataURL = 'data/incidents_by_airport.json';
+    } else {
 
 
-    var searchApp = angular.module('dataSearch', [])
-      .config([
-        '$compileProvider',
-        function($compileProvider) {
-          $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|javascript):/);
-          // Angular before v1.2 uses $compileProvider.urlSanitizationWhitelist(...)
-        }
-      ]);
+        dataURL = "http://" + hostname + "/services/webproxy/?url=http://www.gannett-cdn.com/experiments/usatoday/2015/06/tsa/data/incidents_by_airport.json";
 
-    searchApp.controller('SearchController', function($http, $scope, $filter, $location) {
+    }
+
+
+      angular.module('dataSearch', [])
+        .controller('SearchController', ['$http', '$scope', '$filter', '$location', function($http, $scope, $filter, $location) {
 
       $scope.companies = [];
 
-      $http.get("data/incidents_by_airport.json").then(function(data) {
+      $http.get(dataURL).then(function(data) {
         $scope.data = data.data;
         window.setTimeout(function() {
           $(".preloader-mobile").eq(0).fadeOut(500);
@@ -415,7 +418,7 @@ define(
           emailURL: emailURL
         };
       };
-    });
+    }]);
 
     return {
       init: function() {

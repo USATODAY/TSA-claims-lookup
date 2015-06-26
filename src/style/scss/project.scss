@@ -1,4 +1,5 @@
 @import "bits";
+@import "fonts";
 @import "base";
 
 * {
@@ -21,11 +22,19 @@ body {
   
   font-family: "Futura Today Bold", Arial,sans-serif;
   // height: 100%;
-  @media (min-width: 800px) {
-    background:url(http://www.gannett-cdn.com/experiments/usatoday/2014/11/airport-interactive/img/airport.jpg) no-repeat center center fixed;;
-    background-size: cover;
+  
+}
 
-  }
+#overlay, .transition-wrap, .asset{
+    height: 100% !important;
+}
+
+.iapp-page-wrap {
+    height: 100%;
+    @media (min-width: 800px) {
+        background:url(http://www.gannett-cdn.com/experiments/usatoday/2014/11/airport-interactive/img/airport.jpg) no-repeat center center fixed;;
+        background-size: cover;
+      }
 }
 
 .group{
@@ -78,4 +87,5 @@ body {
 @import "chart";
 @import "iframe";
 @import "share";
+@import "fullWidth";
 
