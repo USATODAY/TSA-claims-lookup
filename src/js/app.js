@@ -15,11 +15,11 @@ define(
     var dataURL;
 
     if ((hostname == "localhost" || hostname == "10.0.2.2")) {
-        dataURL = 'data/incidents_by_airport.json';
+        dataURL = 'data/data.json';
     } else {
 
 
-        dataURL = "http://" + hostname + "/services/webproxy/?url=http://www.gannett-cdn.com/experiments/usatoday/2015/06/tsa/data/incidents_by_airport.json";
+        dataURL = "http://" + hostname + "/services/webproxy/?url=http://www.gannett-cdn.com/experiments/usatoday/2015/06/tsa/data/data.json";
 
     }
 
@@ -39,7 +39,7 @@ define(
           var airport_code = $location.path().substr(1);
 
           var result = $filter("filter")($scope.data, {
-            code: airport_code
+            Airport_Code: airport_code
           }, false);
 
           $scope.initial = result[0];
@@ -61,7 +61,7 @@ define(
         // mobile.currentFocus = focusItem;
         // mobile.setPanelInfo(focusItem);
         $scope.setShare(focusItem);
-        $location.path(focusItem.code);
+        $location.path(focusItem.Airport_Code);
         $scope.current = focusItem;
         $scope.chart($scope.current);
         $scope.isDetailShow = true;
@@ -116,7 +116,7 @@ define(
 
       $scope.chart = function(current) {
 
-        data = [current["01"], current["02"], current["03"], current["04"], current["05"], current["06"], current["07"], current["08"], current["09"], current["10"], current["11"], current["12"], current["13"], current["14"]];
+        data = [current["2010"], current["2011"], current["2012"], current["2013"], current["2014"]];
 
 
         $el = $(".data-chart");
@@ -147,18 +147,16 @@ define(
         var xAxis = d3.svg.axis()
           .scale(x)
           .tickFormat(function(d, i) {
-            if (d < 10) {
-              return "'0" + d;
-            } else {
-              return "'" + d;
-            }
+            return "'" + (d + 9);
 
           })
-          .orient("bottom");
+          .orient("bottom")
+          .ticks(5);
 
         var yAxis = d3.svg.axis()
           .scale(y)
-          .orient("left");
+          .orient("left")
+          .ticks(5);
 
 
 
@@ -182,8 +180,8 @@ define(
           .attr("fill", " #E6E6E6");
 
 
-        x.domain([1, 14]);
-        y.domain([0, 30]);
+        x.domain([1, 5]);
+        y.domain([0, 250]);
 
         // function for the x grid lines
         function make_x_axis() {
@@ -225,126 +223,17 @@ define(
           .attr("transform", "rotate(-90)")
           .attr("y", 6)
           .attr("dy", ".71em")
+          .attr("fill", "#6D6E70")
           .style("text-anchor", "end");
 
         svg.append("path")
           .datum(data)
           .attr("class", "line")
           .attr("d", line)
+          .attr("stroke-linejoin", "round")
+          .attr("stroke-linecap", "round")
           .style("stroke", "#1B9CFA");
 
-        // svg.append("path")
-        //     .datum(chartData2)
-        //     .attr("class", "line")
-        //     .attr("d", line)
-        //     .style("stroke", "#8D8F91");
-
-        // var indexState = chartData2[chartData2.length - 1].index;
-        // var indexCounty = chartData[chartData.length - 1].index;
-
-
-
-        // var tipHeight;
-        // var tipSize;
-        // var tipWidth;
-        // if (mobile.blnSmallScrn) {
-        //   tipHeight = 20;
-        //   tipWidth = 26.66667;
-        //   tipSize = 12;
-        // }  
-
-        // else {
-        //   tipHeight = 30;
-        //   tipWidth = 40;
-        //   tipSize = 16;
-        // }
-
-
-        // var tip = svg.append("g")
-        //   .attr("transform", function() {
-        //       if (indexCounty > indexState) {
-        //        return "translate(" + (width - margin.right - 15) + ", " + (y(indexState) + tipHeight) + ")";
-        //       }
-        //       else {
-        //         return "translate(" + (width - margin.right - 15) + ", " + (y(indexState)-tipHeight/2) + ")";
-        //       }
-        //     });
-
-
-
-        // tip.append("rect")
-        //     .attr("width", tipWidth)
-        //     .attr("height",  tipHeight)
-        //     .attr("fill", "#8D8F91")
-        //      .attr("x", (-tipWidth/4))
-        //     .attr("y", (-tipHeight/1.5))
-        //     .attr("rx", 8)
-        //     .attr("ry", 8);
-
-        // tip.append("text")
-        //     .text(indexState)
-        //     .attr("fill", "#FFFFFF")
-        //     .attr("x", 0)
-        //     .attr("y", 0)
-        //     .attr("font-size", tipSize);
-
-
-        // var tip2 = svg.append("g")
-
-        //     .attr("transform", function() {
-        //       if (indexCounty > indexState) {
-        //         return "translate(" + (width - margin.right - 15) + ", " + (y(indexCounty)-tipHeight/2) + ")";
-        //       }
-        //       else {
-        //         return "translate(" + (width - margin.right - 15) + ", " + (y(indexCounty) + tipHeight) + ")";
-        //       }
-        //     });
-
-        // tip2.append("rect")
-        //     .attr("width", tipWidth)
-        //     .attr("height",  tipHeight)
-        //     .attr("fill", "#1B9CFA")
-        //     .attr("x", (-tipWidth/4))
-        //     .attr("y", (-tipHeight/1.5))
-        //     .attr("rx", 8)
-        //     .attr("ry", 8);
-
-        // tip2.append("text")
-        //     .text(indexCounty)
-        //     .attr("fill", "#FFFFFF")
-        //     .attr("x", 0)
-        //     .attr("y", 0)
-        //     .attr("font-size", tipSize);
-
-
-
-        // var legend = svg.append("g")
-        //     .attr("class", "legend")
-        //     .attr("transform", "translate(" + padding + "," +  (height - margin.bottom/2) + ")");
-
-        // legend.append("circle")
-        //     .attr("r", legendR)
-        //     .attr("cx", 0)
-        //     .attr("cy", 10)
-        //     .attr("fill", "#1B9CFA");
-
-        // legend.append("text")
-        //     .attr("fill", "#1B9CFA")
-        //     .attr("class", "key-text")
-        //     .text("County Diversity Index")
-        //     .attr("transform", "translate(" + (legendR*2.5 ) + ", " + (legendR*2.8) + ")" );
-
-        // legend.append("circle")
-        //     .attr("r", legendR)
-        //     .attr("cx", 150)
-        //     .attr("cy", 10)
-        //     .attr("fill", "#8D8F91");
-
-        // legend.append("text")
-        //     .attr("fill", "#8D8F91")
-        //     .attr("class", "key-text")
-        //     .text("State Diversity Index")
-        //     .attr("transform", "translate(" + (legendR*2.5 + 150) + ", " + (legendR*2.8) + ")" );
       };
 
       $(window).on("resize", function(e) {
@@ -360,12 +249,15 @@ define(
         // Analytics.trackEvent("Typed in search box");
         // mobile.panelWrap.eq(0).hide();
         $scope.isDetailShow = false;
+        console.log($scope.data);
 
         // var numberResults = $(".list-group-item").length;
 
         $scope.filteredArray = $filter("filter")($scope.data, {
           $: $scope.filterTerm
         }, false);
+
+        console.log($scope.filteredArray);
 
         if ($scope.filteredArray.length === 0) {
           $(".mobile-company-info-box").show();
