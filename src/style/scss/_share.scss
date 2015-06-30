@@ -43,10 +43,14 @@
   display: block;
 }
 
-.social-icon {
+.iapp-share-button {
   border: none;
+  display: block;
   margin: 0 auto;
   width: 4em;
+  img {
+    max-width: 100%;
+  }
 }
 
 .share-copy {

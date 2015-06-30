@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/mthorson/tsa.git"
+    "url": "git://github.com/USATODAY/TSA-claims-lookup"
   },
   "scripts": {
     "postinstall": "bower cache clean && bower install"
