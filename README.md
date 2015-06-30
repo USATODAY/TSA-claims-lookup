@@ -20,3 +20,15 @@ and install Bower with
 `npm install -g bower`
 
 Once those dependencies are set up, from this repository run `npm install`, then run `grunt`
+
+###Updating Data
+Set up a Python Virtual environment, install dependencies with `pip install -r requirements.txt`
+
+Stick new spreadsheet data into the `data_tools/input` folder and name `data.xlsx`
+
+To create new JSON file, run
+```
+python data_tools/read_file.py
+```
+
+Your formated JSON is now in the `data_tools/output` folder.
