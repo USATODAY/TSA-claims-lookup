@@ -284,11 +284,11 @@ define(
         } else {
             copy = defaultShare;
         }
-        $scope.share = $scope.createShare(copy);
+        $scope.share = $scope.createShare(copy, airportObj);
       };
 
         
-      $scope.createShare = function(shareString) {
+      $scope.createShare = function(shareString, airportObj) {
             var shareURL = window.location.href;
             var fbShareURL = encodeURI(shareURL.replace('#', '%23'));
             var twitterShareURL = encodeURIComponent(shareURL);
@@ -297,7 +297,7 @@ define(
             return {
                 'fb_id': config.fb_app_id,
                 fbShare:  encodeURI(shareURL.replace('#', '%23')),
-                stillimage: "http://www.gannett-cdn.com/experiments/usatoday/2015/05/broadway/images/fb-post.jpg",
+                stillimage: "http://www.gannett-cdn.com/experiments/usatoday/2015/06/tsa/img/fb-post.jpg",
                 encodedShare: encodeURIComponent(shareString),
                 copy: shareString,
                 fb_redirect: 'http://' + window.location.hostname + '/pages/interactives/fb-share/',
