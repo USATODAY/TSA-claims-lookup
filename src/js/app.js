@@ -19,6 +19,8 @@ define(
 
     if ((hostname == "localhost" || hostname == "10.0.2.2")) {
         dataURL = 'data/data.json';
+    } else if (hostname == "www.gannett-cdn.com") {
+        dataURL = "http://www.gannett-cdn.com/experiments/usatoday/2015/06/tsa/data/data.json";
     } else {
 
 
@@ -28,7 +30,7 @@ define(
 
 
       angular.module('dataSearch', [])
-        .controller('SearchController', ['$http', '$scope', '$filter', '$location', function($http, $scope, $filter, $location) {
+        .controller('SearchController', ['$http', '$scope', '$filter', '$location', 'numberFilter', 'currencyFilter', function($http, $scope, $filter, $location, numberFilter, currencyFilter) {
 
       $scope.companies = [];
 
@@ -114,7 +116,6 @@ define(
       };
 
       this.setPanelInfo = function(data) {
-        console.log(data);
       };
 
       $scope.chart = function(current) {
@@ -252,7 +253,6 @@ define(
         // Analytics.trackEvent("Typed in search box");
         // mobile.panelWrap.eq(0).hide();
         $scope.isDetailShow = false;
-        console.log($scope.data);
 
         // var numberResults = $(".list-group-item").length;
 
@@ -260,7 +260,6 @@ define(
           $: $scope.filterTerm
         }, false);
 
-        console.log($scope.filteredArray);
 
         if ($scope.filteredArray.length === 0) {
           $(".mobile-company-info-box").show();
@@ -281,15 +280,15 @@ define(
         var copy;
 
         if (airportObj) {
-            copy = airportObj.Airport_Code + ": " + airportObj.Total_Claims;
+            copy = "TSA paid passengers " + currencyFilter(airportObj.Total_Paid) + " for damaged, lost items at " + airportObj.Airport_Code + " over last 5 years. Find out more:";
         } else {
             copy = defaultShare;
         }
-        $scope.share = $scope.createShare(copy);
+        $scope.share = $scope.createShare(copy, airportObj);
       };
 
         
-      $scope.createShare = function(shareString) {
+      $scope.createShare = function(shareString, airportObj) {
             var shareURL = window.location.href;
             var fbShareURL = encodeURI(shareURL.replace('#', '%23'));
             var twitterShareURL = encodeURIComponent(shareURL);
@@ -298,7 +297,7 @@ define(
             return {
                 'fb_id': config.fb_app_id,
                 fbShare:  encodeURI(shareURL.replace('#', '%23')),
-                stillimage: "http://www.gannett-cdn.com/experiments/usatoday/2015/05/broadway/images/fb-post.jpg",
+                stillimage: "http://www.gannett-cdn.com/experiments/usatoday/2015/06/tsa/img/fb-post.jpg",
                 encodedShare: encodeURIComponent(shareString),
                 copy: shareString,
                 fb_redirect: 'http://' + window.location.hostname + '/pages/interactives/fb-share/',
@@ -333,6 +332,13 @@ define(
     return {
       init: function() {
         jQuery(".iapp-page-wrap").append(templates["app.html"]());
+        if (blnIframeEmbed) {
+            console.log("iFrame");
+            $("body").addClass("iFrame");
+            $("#header").hide();
+            $(".mobile-footer-link").hide();
+            $(".mobile-company-info-box").hide();
+        }
         angular.bootstrap(document.getElementById('iapp-app'), ['dataSearch']);
 
       }
