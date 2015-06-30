@@ -3,7 +3,7 @@
     <div class="panel-inner-wrap">
       <div class="mobile-back-bar"></div>
       <div class="inner-wrap">
-        <h2 class="mobile-head">TSA Claims</h2>
+        <h2 class="mobile-head">How many claims has TSA paid at your airport?</h2>
         <h3 class="sub-head">Search for claims at your airport</h3>
       </div>
       
@@ -29,17 +29,17 @@
           </div>
           <div class="data-chart"></div>
           <div class="data-group inner-wrap group">
-            <h2 class="total-number">{{current.Total_Claims}}</h2>
-            <h2 class="total-label">Total Claims</h2>
+              <h2 class="total-number">{{current.Total_Paid | currency}}</h2>
+              <h2 class="total-label" >Total Paid</h2>
             
             <div class="sub-group">
-              <h4 class="data-number">{{current.Approved_or_Settled}}</h4>
+              <h4 class="data-number">{{current.Approved_or_Settled | number}}</h4>
               <h3 class="section-head">Claims approved or settled</h3>
               
             </div>
             <div class="sub-group">
-              <h4 class="data-number">{{current.Total_Paid | currency}}</h4>
-              <h3 class="section-head incident-label" ng-click="showInfo()">Total Paid</h3>
+            <h2 class="data-number">{{current.Total_Claims | number}}</h2>
+            <h2 class="section-head incident-label" ng-click="showInfo()">Total Claims</h2>
               
             </div>
              
@@ -66,7 +66,7 @@
     <div class="info-page">
       <div class="info-close-button" ng-click="hideInfo()"><img src="http://www.gannett-cdn.com/experiments/usatoday/2014/11/airport-interactive/img/close.svg" alt="close" class="close-icon"></div>
       <h2 class="info-title share-title">Info</h2>
-      <p class="info-text">Info Paragraph</p>
+      <p class="info-text">The number of claims, approved and settled claims and dollar amounts of payments to passengers are drawn from the Transportation Security Administration's released data about every claim filed for each airport from 2010 through 2014. The line shows the paid claims - those TSA investigated and either approved or settled - for each of the five years. The totals below represent the totals for the entire five-year period.</p>
       <h2 class="info-title share-title">Credits</h2>
       <p class="info-text">Nicholas Penzenstadler, John Kelly, Mitchell Thorson USA TODAY</p>
       <p class="info-text"><strong>Source: </strong> FAA</p>
